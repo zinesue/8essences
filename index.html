@@ -6,48 +6,11 @@
     <title>인간다움의 8가지 유형 테스트</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-		
-		.footer {
-			margin-top: 60px;
-			padding-top: 30px;
-			border-top: 1px solid #d2d2d7;
-			text-align: center;
-		}
-
-		.creator-tag {
-			font-size: 0.9rem;
-			color: #86868b;
-			margin-bottom: 5px;
-		}
-
-		.instagram-link {
-			color: var(--text-color);
-			text-decoration: none;
-			font-weight: 500;
-			font-size: 1.1rem;
-			transition: color 0.2s;
-		}
-
-		.instagram-link:hover {
-			color: var(--accent-color);
-		}
-
-		.zine-desc {
-			font-size: 0.85rem;
-			color: #a1a1a6;
-			margin-top: 8px;
-			font-weight: 300;
-		}
-
-		.highlight {
-			color: var(--accent-color); 
-			font-weight: 500;           
-			display: inline;            
-		}
         :root {
             --bg-color: #ffffff;
             --text-color: #1d1d1f;
             --accent-color: #0071e3;
+            --contrast-color: #ff9500;
             --secondary-bg: #f5f5f7;
             --border-radius: 12px;
         }
@@ -116,28 +79,33 @@
 
         .start-btn:hover {
             background-color: #0077ed;
-            color: white;
         }
 
-        /* 결과 화면 스타일 */
         .result-header { margin-bottom: 40px; border-bottom: 1px solid #d2d2d7; padding-bottom: 20px; }
         .type-name { font-size: 1.8rem; color: var(--accent-color); font-weight: 700; display: block; margin-top: 10px; }
-        .content-box { text-align: left; background: var(--secondary-bg); padding: 25px; border-radius: var(--border-radius); margin-bottom: 30px; }
+        
+        .content-box { text-align: left; background: var(--secondary-bg); padding: 25px; border-radius: var(--border-radius); margin-bottom: 20px; }
         .content-box h3 { margin-top: 0; font-size: 1.2rem; border-left: 4px solid var(--accent-color); padding-left: 10px; }
+        
+        /* 잘 안 맞는 유형 전용 스타일 (대비색 적용) */
+        .bad-match-box h3 {
+            border-left-color: var(--contrast-color) !important;
+        }
+
         .guide-section { margin-top: 50px; text-align: left; }
         .guide-title { font-weight: 700; font-size: 1.4rem; margin-bottom: 20px; text-align: center; }
         
+        .footer { margin-top: 60px; padding-top: 30px; border-top: 1px solid #d2d2d7; text-align: center; }
+        .creator-tag { font-size: 0.9rem; color: #86868b; margin-bottom: 5px; }
+        .instagram-link { color: var(--text-color); text-decoration: none; font-weight: 500; font-size: 1.1rem; }
+        .zine-desc { font-size: 0.85rem; color: #a1a1a6; margin-top: 8px; font-weight: 300; }
+        .highlight { color: var(--accent-color); font-weight: 500; display: inline; }
+        .date-tag { font-size: 0.75rem; color: #a1a1a6; margin-top: 4px; letter-spacing: 0.05em; font-weight: 300; }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-		.date-tag {
-			font-size: 0.75rem;
-			color: #a1a1a6; /* 연한 회색 */
-			margin-top: 4px;
-			letter-spacing: 0.05em; /* 자간을 살짝 넓히면 더 세련되어 보입니다 */
-			font-weight: 300;
-		}
     </style>
 </head>
 <body>
@@ -171,239 +139,162 @@
             <div class="guide-title">서로 다른 인간다움을 위한 가이드</div>
             
             <div class="content-box">
-                <h3 id="hard-to-understand-title">내가 이해하기 어려운 유형</h3>
-                <div id="hard-to-understand-content">내용</div>
+                <h3 id="good-match-title">나와 잘 맞는 유형</h3>
+                <div id="good-match-content"></div>
             </div>
 
-            <div class="content-box">
-                <h3 id="hard-for-me-title">나를 이해하기 어려워하는 유형</h3>
-                <div id="hard-for-me-content">내용</div>
+            <div class="content-box bad-match-box">
+                <h3 id="bad-match-title">나와 잘 안 맞는 유형</h3>
+                <div id="bad-match-content"></div>
             </div>
         </div>
         
-		<div class="footer">
-			<div class="date-tag">Published. 2026. 04.</div>
-			<div class="creator-tag">Created by</div>
-			<a href="https://www.instagram.com/zinesue_/" target="_blank" class="instagram-link">
-				@zinesue_
-			</a>
-			<div class="zine-desc">
-				↑ 한계를 허무는 독립출판 프로젝트 보러가기 ↑ 
-			</div>
-			
-		</div>
+        <div class="footer">
+            <div class="date-tag">Published. 2026. 04.</div>
+            <div class="creator-tag">Created by</div>
+            <a href="https://www.instagram.com/zinesue_/" target="_blank" class="instagram-link">@zinesue_</a>
+            <div class="zine-desc">↑ 한계를 허무는 독립출판 프로젝트 보러가기 ↑</div>
+        </div>
 
-		
-		
         <button onclick="location.reload()" style="margin-top: 20px;">다시 테스트하기</button>
     </div>
 </div>
 
 <script>
-    // 데이터 구조 정의
-	const types = {
-		1: { 
-			name: "이성·성찰형", 
-			targetId: 5,
-			desc: "인간다움은 생각하고 반성하며 자기 삶을 돌아보는 능력에 있다고 보는 유형입니다. 소크라테스, 데카르트처럼 자기인식과 성찰을 중심에 두며, '검토되지 않은 삶'이나 '생각 없이 흘러가는 삶'을 인간다움의 약화로 봅니다. 인간을 단순히 살아가는 존재가 아니라, 스스로에게 끊임없이 질문을 던지는 존재로 정의하며, <span class='highlight'>자기 자신을 의식의 대상으로 삼아 성찰할 수 있는가</span>를 인간의 핵심 기준으로 삼습니다.", 
-			hard: "왜 아무런 고민도, 질문도 없이 그냥 흘러가는 대로 사는 거지? 그건 생각 없는 삶 아닌가?",
-			tip: "그들에게 '아무것도 하지 않음'은 게으름이 아니라, 세상의 거대한 흐름을 방해하지 않으려는 가장 높은 차원의 조율입니다.",
-			misunderstanding: "그냥 살면 되는데, 왜 그렇게 모든 것에 의미를 부여하고 스스로를 괴롭히며 따져 묻는 거지? 너무 부자연스러워 보여.",
-			myAnswer: "저에게 성찰은 스스로를 괴롭히는 고문이 아닙니다. 나 자신이 누구인지, 어떤 삶을 살고 있는지 명확히 알아야만 비로소 세상과 진정한 조화를 이룰 수 있다고 믿습니다. 질문을 멈추지 않는 것은 제가 세상을 사랑하는 저만의 방식입니다."
-		},
-		2: { 
-			name: "덕·도덕형", 
-			targetId: 8,
-			desc: "옳음, 선함, 절제와 같은 규범을 실천하는 데 인간다움이 있다고 보는 유형입니다. 아리스토텔레스와 유교 전통처럼 인간을 <span class='highlight'>마땅히 따라야 할 선과 규범을 알고 그것을 실천할 수 있는 존재</span>로 이해합니다. 그래서 '인간답지 못한 행동'은 단순한 실수가 아니라 인간성의 실패나 타락으로 여겨지며, 이성적 활동과 덕의 실현을 통해 비로소 인간다운 삶이 완성된다고 봅니다.", 
-			hard: "어떻게 자신이 세운 기준과 인간성을 스스로 배반할 수 있지? 그건 타락이나 실패 아닌가?",
-			tip: "그들이 규칙을 깨는 이유는 악해서가 아니라, '나는 규칙에 종속된 기계가 아니다'라는 자유를 증명하기 위함입니다.",
-			misunderstanding: "언제든 무너질 수 있는 연약한 규범을 왜 그렇게 절대적인 진리처럼 떠받들며 융통성 없이 구는 거야?",
-			myAnswer: "제가 도덕과 규범을 고수하는 이유는 자유가 없어서가 아닙니다. 오히려 자유롭기 때문에, 스스로를 다스리는 단단한 선을 긋고 그 안에서 가치 있는 삶을 일구려 애쓰는 것입니다. 이 규범은 혼돈 속에서 나를 지켜내기 위해 스스로 쌓아 올린 성벽과 같습니다."
-		},
-		3: { 
-			name: "관계·인정형", 
-			targetId: 6,
-			desc: "인간다움은 홀로 완성되지 않고, 타인과의 관계 속에서 형성된다고 보는 유형입니다. '나는 누구인가'라는 질문보다 '나는 누구와 어떤 관계를 맺고 있는가'를 더 중시합니다. 인간은 고립된 자아가 아니라, 인정받고 응답하며 책임지는 과정 속에서 인간다워집니다. 인간다움의 핵심은 내면의 순수성보다, <span class='highlight'>타인의 존재가 나를 이해하고 형성하는 방식</span>에 있다고 믿습니다.", 
+    const types = {
+        1: { 
+            name: "이성·성찰형", 
+            targetId: 5, 
+            matchId: 2,
+            desc: "인간다움은 생각하고 반성하며 자기 삶을 돌아보는 능력에 있다고 보는 유형입니다. 소크라테스, 데카르트처럼 자기인식과 성찰을 중심에 두며, '검토되지 않은 삶'이나 '생각 없이 흘러가는 삶'을 인간다움의 약화로 봅니다. 인간을 단순히 살아가는 존재가 아니라, 스스로에게 끊임없이 질문을 던지는 존재로 정의하며, <span class='highlight'>자기 자신을 의식의 대상으로 삼아 성찰할 수 있는가</span>를 인간의 핵심 기준으로 삼습니다.",
+            hard: "왜 아무런 고민도, 질문도 없이 그냥 흘러가는 대로 사는 거지? 그건 생각 없는 삶 아닌가?",
+            misunderstanding: "그냥 살면 되는데, 왜 그렇게 모든 것에 의미를 부여하고 스스로를 괴롭히며 따져 묻는 거지? 너무 부자연스러워 보여.",
+            tip: "그들에게 '아무것도 하지 않음'은 게으름이 아니라, 세상의 거대한 흐름을 방해하지 않으려는 조율입니다.",
+            matchDesc: "이성·성찰형은 덕·도덕형의 신념이 맹목이 되지 않게 끊임없이 돌아보게 하고, 덕·도덕형은 이성·성찰형의 질문이 삶 밖의 사유로만 머물지 않게 붙잡아 줍니다. 함께 있을 때 생각은 실천이 되고, 실천은 더 깊은 이유를 갖게 됩니다."
+        },
+        2: { 
+            name: "덕·도덕형", 
+            targetId: 8, 
+            matchId: 1,
+            desc: "옳음, 선함, 절제와 같은 규범을 실천하는 데 인간다움이 있다고 보는 유형입니다. 아리스토텔레스와 유교 전통처럼 인간을 <span class='highlight'>마땅히 따라야 할 선과 규범을 알고 그것을 실천할 수 있는 존재</span>로 이해합니다. 그래서 '인간답지 못한 행동'은 단순한 실수가 아니라 인간성의 실패나 타락으로 여겨지며, 이성적 활동과 덕의 실현을 통해 비로소 인간다운 삶이 완성된다고 봅니다.",
+            hard: "어떻게 자신이 세운 기준과 인간성을 스스로 배반할 수 있지? 그건 타락이나 실패 아닌가?",
+            misunderstanding: "언제든 무너질 수 있는 연약한 규범을 왜 그렇게 절대적인 진리처럼 떠받들며 융통성 없이 구는 거야?",
+            tip: "그들이 규칙을 깨는 이유는 악해서가 아니라, '나는 규칙에 종속된 기계가 아니다'라는 자유를 증명하기 위함입니다.",
+            matchDesc: "덕·도덕형은 이성·성찰형에게 삶의 방향과 책임감을 선명하게 해주고, 이성·성찰형은 덕·도덕형이 자신의 기준을 더 정교하고 유연하게 다듬도록 돕습니다. 함께 있을 때 둘은 ‘옳고자 하는 마음’과 ‘왜 옳은가를 묻는 힘’을 함께 갖게 됩니다."
+        },
+        3: { 
+            name: "관계·인정형", 
+            targetId: 6, 
+            matchId: 4,
+            desc: "인간다움은 홀로 완성되지 않고, 타인과의 관계 속에서 형성된다고 보는 유형입니다. '나는 누구인가'라는 질문보다 '나는 누구와 어떤 관계를 맺고 있는가'를 더 중시합니다. 인간은 고립된 자아가 아니라, 인정받고 응답하며 책임지는 과정 속에서 인간다워집니다. 인간다움의 핵심은 내면의 순수성보다, <span class='highlight'>타인의 존재가 나를 이해하고 형성하는 방식</span>에 있다고 믿습니다.", 
 			hard: "관계가 인간다움의 본질인데, 왜 자꾸 '나'도 없고 '너'도 없다고 하는 거지? 너무 허무하고 차갑게 느껴져.",
-			tip: "그들이 자아를 해체하는 이유는 타인을 거부하기 위해서가 아니라, '나'라는 고집을 버려야만 비로소 타인을 편견 없이 온전히 받아들일 수 있다고 믿기 때문입니다.",
-			misunderstanding: "타인의 인정에 그렇게 목매는 게 무슨 의미가 있지? 어차피 고정된 '나'라는 건 허구일 뿐인데 말이야.",
-			myAnswer: "저에게 관계는 자아에 대한 집착이 아닙니다. 타인의 따뜻한 응답과 연결을 통할 때 내가 살아있음을 생생하게 느끼기 때문입니다. 설령 자아가 구성된 허구일지라도, 누군가와 마음을 주고받는 그 순간만큼은 저에게 무엇보다 소중한 진실입니다."
-		},
-		4: { 
-			name: "공동체·질서형", 
-			targetId: 7,
-			desc: "개인의 내면보다 자신이 속한 공동체와 질서 안에서 제 자리를 맡고 살아가는 데 인간다움이 있다고 봅니다. 인간을 독립된 개인보다 사회적 역할을 수행하는 존재로 이해하며, 부모, 자식, 구성원으로서의 <span class='highlight'>자리를 제대로 감당할 때 인간다움이 드러난다</span>고 봅니다. 관계·인정형이 살아있는 응답을 중시한다면, 이 유형은 예(禮), 역할, 제도의 유지와 조화를 더욱 중시합니다.", 
+            misunderstanding: "타인의 인정에 그렇게 목매는 게 무슨 의미가 있지? 어차피 고정된 '나'라는 건 허구일 뿐인데 말이야.",
+            tip: "그들이 자아를 해체하는 이유는 타인을 거부하기 위해서가 아니라, '나'라는 고집을 버려야만 타인을 온전히 받아들일 수 있다고 믿기 때문입니다.",
+            matchDesc: "관계·인정형은 공동체·질서형의 세계에 따뜻한 감정과 살아 있는 응답을 더해 주고, 공동체·질서형은 관계·인정형의 마음이 오래 지속될 수 있도록 안정된 틀을 만들어 줍니다. 함께 있을 때 연결은 일시적인 호감이 아니라 오래 가는 신뢰가 됩니다."
+        },
+        4: { 
+            name: "공동체·질서형", 
+            targetId: 7, 
+            matchId: 3,
+            desc: "개인의 내면보다 자신이 속한 공동체와 질서 안에서 제 자리를 맡고 살아가는 데 인간다움이 있다고 봅니다. 인간을 독립된 개인보다 사회적 역할을 수행하는 존재로 이해하며, 부모, 자식, 구성원으로서의 <span class='highlight'>자리를 제대로 감당할 때 인간다움이 드러난다</span>고 봅니다. 관계·인정형이 살아있는 응답을 중시한다면, 이 유형은 예(禮), 역할, 제도의 유지와 조화를 더욱 중시합니다.", 
 			hard: "주어진 역할과 질서를 무시하고 왜 자꾸 자기 마음대로만 살려고 하는 거야? 공동체는 안중에도 없나?",
-			tip: "그들에게 주어진 역할을 거부하는 것은 무책임이 아니라, '남이 정해준 내가 아닌 진짜 나'로서 책임 있게 살고 싶다는 절규입니다.",
-			misunderstanding: "왜 자기 자신으로 살지 못하고 '누구의 부모', '어느 조직의 일원' 같은 사회적 가면 뒤에 숨어서 안주하는 거지?",
-			myAnswer: "제가 질서와 역할을 지키는 것은 나만의 길을 갈 용기가 없어서가 아닙니다. 내가 속한 세계와 소중한 사람들을 묵묵히 지탱함으로써 그들에게 평온을 선물하려는 저만의 헌신입니다. 이 자리를 책임 있게 지켜내는 것 또한 제가 선택한 숭고한 실존의 방식입니다."
-		},
-		5: { 
-			name: "자연·무위형", 
-			targetId: 1,
-			desc: "인간다움은 무언가를 과도하게 세우는 것이 아니라, 오히려 <span class='highlight'>인위적 자아와 규범에 대한 집착을 덜어내는 데</span> 있다고 봅니다. 노자, 장자의 사상처럼 억지로 꾸민 자아와 사회적 가면을 벗겨낼 때 본래의 인간다움이 나타난다고 믿습니다. 애써 인간다워지려는 태도 자체가 부자연스럽다고 보며, 덜 집착하고 자연스럽게 존재할 때 비로소 가장 인간적일 수 있다고 봅니다.", 
+            misunderstanding: "왜 자기 자신으로 살지 못하고 '사회적 가면' 뒤에 숨어서 안주하는 거지?",
+            tip: "그들에게 주어진 역할을 거부하는 것은 무책임이 아니라, '진짜 나'로서 책임 있게 살고 싶다는 절규입니다.",
+            matchDesc: "공동체·질서형은 관계·인정형에게 관계를 지탱하는 책임과 구조를 보여 주고, 관계·인정형은 공동체·질서형이 질서를 사람 없는 형식으로 굳히지 않게 만들어 줍니다. 함께 있을 때 질서는 더 인간적이 되고, 관계는 더 따뜻하고 단단해집니다."
+        },
+        5: { 
+            name: "자연·무위형", 
+            targetId: 1, 
+            matchId: 6,
+            desc: "인간다움은 무언가를 과도하게 세우는 것이 아니라, 오히려 <span class='highlight'>인위적 자아와 규범에 대한 집착을 덜어내는 데</span> 있다고 봅니다. 노자, 장자의 사상처럼 억지로 꾸민 자아와 사회적 가면을 벗겨낼 때 본래의 인간다움이 나타난다고 믿습니다. 애써 인간다워지려는 태도 자체가 부자연스럽다고 보며, 덜 집착하고 자연스럽게 존재할 때 비로소 가장 인간적일 수 있다고 봅니다.", 
 			hard: "그냥 살면 되는데, 왜 그렇게 모든 것에 의미를 부여하고 스스로를 괴롭히며 따져 묻는 거지? 너무 부자연스러워.",
-			tip: "그들에게 성찰은 억지로 하는 고문이 아니라, 자신이 누구인지 알아야만 세상과 조화를 이룰 수 있다고 믿는 그들만의 정성입니다.",
-			misunderstanding: "왜 아무런 고민도, 질문도 없이 그냥 흘러가는 대로 사는 거지? 그건 인간다움을 포기한 생각 없는 삶 아닌가?",
-			myAnswer: "저에게 '아무것도 하지 않음'은 게으름이나 포기가 아닙니다. 그것은 억지로 꾸며낸 자아와 규범의 집착을 덜어내고, 세상의 거대한 흐름에 나를 오롯이 맡기려는 가장 높은 차원의 조율입니다. 덜 꾸미고 자연스럽게 존재할 때, 저는 비로소 가장 인간다워집니다."
-		},
-		6: { 
-			name: "해체·무아형", 
-			targetId: 3,
-			desc: "단단한 자아를 확립하기보다 <span class='highlight'>자아가 하나의 구성물임을 깨닫고 그것을 비워내는 데</span> 인간다움이 있다고 봅니다. 불교의 무아나 후기 현대사상처럼 우리가 당연하게 여겨온 '자아'나 '주체'라는 개념이 어떻게 만들어졌는지 의심합니다. 강한 자아를 세우는 대신, 자아의 허구성과 조건성을 인식하는 것이 진정한 인간다움에 이르는 길이라고 생각합니다.", 
+            misunderstanding: "왜 아무런 고민도, 질문도 없이 그냥 흘러가는 대로 사는 거지? 그건 인간다움을 포기한 삶 아닌가?",
+            tip: "그들에게 성찰은 억지로 하는 고문이 아니라, 자신이 누구인지 알아야만 세상과 조화를 이룰 수 있다고 믿는 그들만의 정성입니다.",
+            matchDesc: "자연·무위형은 해체·무아형의 사유가 지나치게 긴장되거나 관념적으로 흐르지 않게 풀어 주고, 해체·무아형은 자연·무위형이 막연한 ‘흘러감’에 머물지 않도록 그 깊이를 비춰 줍니다. 함께 있을 때 둘은 집착 없이 가볍고 넓게 존재하는 법을 배우게 됩니다."
+        },
+        6: { 
+            name: "해체·무아형", 
+            targetId: 3, 
+            matchId: 5,
+            desc: "단단한 자아를 확립하기보다 <span class='highlight'>자아가 하나의 구성물임을 깨닫고 그것을 비워내는 데</span> 인간다움이 있다고 봅니다. 불교의 무아나 후기 현대사상처럼 우리가 당연하게 여겨온 '자아'나 '주체'라는 개념이 어떻게 만들어졌는지 의심합니다. 강한 자아를 세우는 대신, 자아의 허구성과 조건성을 인식하는 것이 진정한 인간다움에 이르는 길이라고 생각합니다.", 
 			hard: "타인의 인정에 그렇게 목매는 게 무슨 의미가 있지? 어차피 고정된 '나'라는 건 허구일 뿐인데.",
-			tip: "그들에게 관계는 자아의 집착이 아니라, 타인의 눈동자를 통해서만 비로소 자신이 존재함을 느끼는 따뜻한 확인 절차입니다.",
-			misunderstanding: "관계가 인간다움의 전부인데, 왜 자꾸 '나'도 없고 '너'도 없다고 하는 거지? 너무 허무하고 차갑게 느껴져.",
-			myAnswer: "제가 자아를 비워내려는 이유는 타인을 거부하기 위해서가 아닙니다. 오히려 '나'라는 단단한 고집과 편견을 버려야만 비로소 타인의 존재를 있는 그대로 온전히 받아들일 수 있다고 믿기 때문입니다. 저에게 비움은 곧 더 큰 연결을 위한 시작입니다."
-		},
-		7: { 
-			name: "실존·선택형", 
-			targetId: 4,
-			desc: "인간다움은 주어진 본성이 아니라, <span class='highlight'>어떤 존재가 될지를 스스로 떠맡고 선택하는 데</span> 있다고 봅니다. 실존주의 철학처럼 인간은 처음부터 결정된 존재가 아니라, 자유와 책임 속에서 끊임없이 자기 자신을 만들어가야 하는 과제를 안고 있습니다. 따라서 인간다움은 안주하는 삶보다는 선택의 무게를 견디고 결단하는 과정에서 선명하게 드러납니다.", 
-			hard: "왜 자기 자신으로 살지 못하고 '누구의 아빠', '어디의 직원' 같은 사회적 가면 뒤에 숨어서 안주하는 거지?",
-			tip: "그들이 질서를 지키는 것은 용기가 없어서가 아니라, 자신이 속한 세계를 지탱함으로써 타인에게 평온을 선물하려는 헌신입니다.",
-			misunderstanding: "주어진 역할과 질서를 무시하고 왜 자꾸 자기 마음대로만 살려고 하는 거야? 공동체는 안중에도 없는 거야?",
-			myAnswer: "제가 주어진 역할을 거부하는 것은 무책임한 일탈이 아닙니다. 남이 정해준 내가 아닌, '진짜 나'로서 책임 있게 살고 싶다는 간절한 선택입니다. 제가 저 자신을 온전히 떠맡고 스스로를 만들어갈 때, 비로소 공동체도 더 건강하고 단단해질 수 있다고 믿습니다."
-		},
-		8: { 
-			name: "부정·파기형", 
-			targetId: 2,
-			desc: "인간다움은 특정 속성이 아니라, 자신에게 부여된 <span class='highlight'>인간성의 기준마저 의식적으로 거부할 수 있는 능력</span>에 있다고 보는 독특한 유형입니다. 인간은 단순히 인간답게 살 수 있는 존재일 뿐만 아니라, 인간이기를 포기하거나 자기 인간성을 배반할 수도 있는 존재입니다. 이러한 자기 파기와 부정의 가능성이야말로 인간만의 극단적인 특징이라고 봅니다.", 
-			hard: "언제든 무너질 수 있는 연약한 규범을 왜 그렇게 절대적인 진리처럼 떠받들며 융통성 없이 구는 거야?",
-			tip: "그들이 도덕을 고수하는 이유는 자유가 없어서가 아니라, 자유롭기 때문에 스스로를 옥죄는 단단한 선을 긋고 그 안에서 가치를 창조하려 애쓰는 것입니다.",
-			misunderstanding: "어떻게 자신이 세운 기준과 인간성을 스스로 배반할 수 있지? 그건 인간으로서의 타락이자 실패 아닌가?",
-			myAnswer: "제가 규칙을 깨고 자신마저 부정하는 이유는 악해서가 아닙니다. 저는 단지 입력된 대로만 움직이는 기계가 아님을, 내 인간성의 기준마저 거부할 수 있는 존재임을 증명하고 싶을 뿐입니다. 이 파기 가능성이야말로 인간만이 할 수 있는 가장 고독하고도 극단적인 자유의 형태입니다."
-		}
-	};
-		
-
-    const groupGuides = {
-        1: {
-            pair: [1, 5],
-            1: { target: 5, hard: "왜 아무런 고민도, 질문도 없이 그냥 흘러가는 대로 사는 거지? 그건 생각 없는 삶 아닌가?", tip: "그들에게 '아무것도 하지 않음'은 게으름이 아니라, 세상의 거대한 흐름을 방해하지 않으려는 가장 높은 차원의 조율입니다." },
-            5: { target: 1, hard: "그냥 살면 되는데, 왜 그렇게 모든 것에 의미를 부여하고 스스로를 괴롭히며 따져 묻는 거지? 너무 부자연스러워.", tip: "그들에게 성찰은 억지로 하는 고문이 아니라, 자신이 누구인지 알아야만 세상과 조화를 이룰 수 있다고 믿는 그들만의 정성입니다." }
+            misunderstanding: "관계가 인간다움의 전부인데, 왜 자꾸 '나'도 없고 '너'도 없다고 하는 거지? 너무 허무하고 차갑게 느껴져.",
+            tip: "그들에게 관계는 자아의 집착이 아니라, 타인의 눈동자를 통해서만 비로소 자신이 존재함을 느끼는 따뜻한 확인 절차입니다.",
+            matchDesc: "해체·무아형은 자연·무위형에게 자아와 규범에 대한 집착을 더 선명하게 내려놓는 시각을 주고, 자연·무위형은 해체·무아형에게 비움이 차가운 해체가 아니라 편안한 자연스러움이 될 수 있음을 보여 줍니다. 함께 있을 때 비움은 허무가 아니라 평온이 됩니다."
         },
-        2: {
-            pair: [2, 8],
-            2: { target: 8, hard: "어떻게 자신이 세운 기준과 인간성을 스스로 배반할 수 있지? 그건 타락이나 실패 아닌가?", tip: "그들이 규칙을 깨는 이유는 악해서가 아니라, '나는 규칙에 종속된 기계가 아니다'라는 자유를 증명하기 위함입니다." },
-            8: { target: 2, hard: "언제든 무너질 수 있는 연약한 규범을 왜 그렇게 절대적인 진리처럼 떠받들며 융통성 없이 구는 거야?", tip: "그들이 도덕을 고수하는 이유는 자유가 없어서가 아니라, 자유롭기 때문에 스스로를 옥죄는 단단한 선을 긋고 그 안에서 가치를 창조하려 애쓰는 것입니다." }
+        7: { 
+            name: "실존·선택형", 
+            targetId: 4, 
+            matchId: 8,
+            desc: "인간다움은 주어진 본성이 아니라, <span class='highlight'>어떤 존재가 될지를 스스로 떠맡고 선택하는 데</span> 있다고 봅니다. 실존주의 철학처럼 인간은 처음부터 결정된 존재가 아니라, 자유와 책임 속에서 끊임없이 자기 자신을 만들어가야 하는 과제를 안고 있습니다. 따라서 인간다움은 안주하는 삶보다는 선택의 무게를 견디고 결단하는 과정에서 선명하게 드러납니다.", 
+			hard: "왜 자기 자신으로 살지 못하고 '사회적 가면' 뒤에 숨어서 안주하는 거지?",
+            misunderstanding: "주어진 역할과 질서를 무시하고 왜 자꾸 자기 마음대로만 살려고 하는 거야?",
+            tip: "그들이 질서를 지키는 것은 용기가 없어서가 아니라, 자신이 속한 세계를 지탱함으로써 타인에게 평온을 선물하려는 헌신입니다.",
+            matchDesc: "실존·선택형은 부정·파기형의 급진적 자유가 허무한 파괴로만 흐르지 않게 책임과 결단의 방향을 제시하고, 부정·파기형은 실존·선택형이 익숙한 자기서사에 안주하지 않도록 끝없이 경계를 흔들어 줍니다. 함께 있을 때 둘은 ‘깨뜨릴 자유’와 ‘떠맡을 용기’를 동시에 갖게 됩니다."
         },
-        3: {
-            pair: [3, 6],
-            3: { target: 6, hard: "관계가 인간다움의 전부인데, 왜 자꾸 '나'도 없고 '너'도 없다고 하는 거지? 너무 허무하고 차갑게 느껴져.", tip: "그들이 자아를 해체하는 이유는 타인을 거부하기 위해서가 아니라, '나'라는 고집을 버려야만 비로소 타인을 편견 없이 온전히 받아들일 수 있다고 믿기 때문입니다." },
-            6: { target: 3, hard: "타인의 인정에 그렇게 목매는 게 무슨 의미가 있지? 어차피 고정된 '나'라는 건 허구일 뿐인데.", tip: "그들에게 관계는 자아의 집착이 아니라, 타인의 눈동자를 통해서만 비로소 자신이 존재함을 느끼는 따뜻한 확인 절차입니다." }
-        },
-        4: {
-            pair: [4, 7],
-            4: { target: 7, hard: "주어진 역할과 질서를 무시하고 왜 자꾸 자기 마음대로만 살려고 하는 거야? 공동체는 안중에도 없나?", tip: "그들에게 주어진 역할을 거부하는 것은 무책임이 아니라, '남이 정해준 내가 아닌 진짜 나'로서 책임 있게 살고 싶다는 절규입니다." },
-            7: { target: 4, hard: "왜 자기 자신으로 살지 못하고 '누구의 아빠', '어디의 직원' 같은 사회적 가면 뒤에 숨어서 안주하는 거지?", tip: "그들이 질서를 지키는 것은 용기가 없어서가 아니라, 자신이 속한 세계를 지탱함으로써 타인에게 평온을 선물하려는 헌신입니다." }
+        8: { 
+            name: "부정·파기형", 
+            targetId: 2, 
+            matchId: 7,
+            desc: "인간다움은 특정 속성이 아니라, 자신에게 부여된 <span class='highlight'>인간성의 기준마저 의식적으로 거부할 수 있는 능력</span>에 있다고 보는 독특한 유형입니다. 인간은 단순히 인간답게 살 수 있는 존재일 뿐만 아니라, 인간이기를 포기하거나 자기 인간성을 배반할 수도 있는 존재입니다. 이러한 자기 파기와 부정의 가능성이야말로 인간만의 극단적인 특징이라고 봅니다.", 
+			hard: "연약한 규범을 왜 그렇게 절대적인 진리처럼 떠받들며 융통성 없이 구는 거야?",
+            misunderstanding: "어떻게 자신이 세운 기준과 인간성을 스스로 배반할 수 있지? 그건 인간으로서의 타락이자 실패 아닌가?",
+            tip: "그들이 도덕을 고수하는 이유는 자유가 없어서가 아니라, 자유롭기 때문에 스스로를 옥죄는 선을 긋고 가치를 창조하려 애쓰는 것입니다.",
+            matchDesc: "부정·파기형은 실존·선택형에게 아직 넘지 못한 경계를 부수는 과감함을 주고, 실존·선택형은 부정·파기형의 부정이 공허한 해체에 머물지 않도록 삶의 형태로 다시 세워 줍니다. 함께 있을 때 반항은 창조가 되고, 해체는 새로운 선택의 출발점이 됩니다."
         }
     };
 
     const questions = {
-        start: {
-            text: "인간다움이란 어느 쪽에 더 가깝나요?",
-            options: [
-                { text: "지켜야 할 보편적 가치와 기준이 중요함", next: "2A" },
-                { text: "고정된 기준보다 개별적 상황과 자유가 중요함", next: "2B" }
-            ]
-        },
-        "2A": {
-            text: "인간다움이란 어디에서 오나요?",
-            options: [
-                { text: "내가 스스로 생각하고 판단하는 힘", next: "3A" },
-                { text: "타인과 내가 함께 살아가는 세상", next: "3B" }
-            ]
-        },
-        "2B": {
-            text: "인간답기 위해 당신은 무엇을 하고 싶나요?",
-            options: [
-                { text: "인위적인 자아나 구속에서 벗어나기", next: "3C" },
-                { text: "끊임없는 선택과 결단으로 나를 증명함", next: "3D" }
-            ]
-        },
-        "3A": {
-            text: "더 가치 있는 노력은 무엇일까요?",
-            options: [
-                { text: "내가 왜 이렇게 사는지 끊임없이 돌아보는 것", result: 1 },
-                { text: "서툴러도 옳다고 믿는 규범을 묵묵히 실천하는 것", result: 2 }
-            ]
-        },
-        "3B": {
-            text: "인간을 인간답게 만드는 연결고리는 무엇인가요?",
-            options: [
-                { text: "서로의 존재를 인정하고 응답하는 만남", result: 3 },
-                { text: "사회의 구성원으로서 맡은 역할과 조화", result: 4 }
-            ]
-        },
-        "3C": {
-            text: "본래의 나를 찾는 가장 자연스러운 방법은?",
-            options: [
-                { text: "애써 꾸미지 않고 세상의 흐름에 나를 맡기는 것", result: 5 },
-                { text: "변하지 않는 '나'라는 고집을 내려놓고 비워내는 것", result: 6 }
-            ]
-        },
-        "3D": {
-            text: "내가 나를 만들어 갈 때 더 본질적인 모습은?",
-            options: [
-                { text: "불안하더라도 스스로의 삶을 책임지며 선택하는 것", result: 7 },
-                { text: "자기 인간성의 기준조차 스스로 포기할 수 있는 자유", result: 8 }
-            ]
-        }
+        start: { text: "인간다움이란 어느 쪽에 더 가깝나요?", options: [{ text: "지켜야 할 보편적 가치와 기준이 중요함", next: "2A" }, { text: "고정된 기준보다 개별적 상황과 자유가 중요함", next: "2B" }] },
+        "2A": { text: "인간다움이란 어디에서 오나요?", options: [{ text: "내가 스스로 생각하고 판단하는 힘", next: "3A" }, { text: "타인과 내가 함께 살아가는 세상", next: "3B" }] },
+        "2B": { text: "인간답기 위해 당신은 무엇을 하고 싶나요?", options: [{ text: "인위적인 자아나 구속에서 벗어나기", next: "3C" }, { text: "끊임없는 선택과 결단으로 나를 증명함", next: "3D" }] },
+        "3A": { text: "더 가치 있는 노력은 무엇일까요?", options: [{ text: "내가 왜 이렇게 사는지 끊임없이 돌아보는 것", result: 1 }, { text: "서툴러도 옳다고 믿는 규범을 묵묵히 실천하는 것", result: 2 }] },
+        "3B": { text: "인간을 인간답게 만드는 연결고리는 무엇인가요?", options: [{ text: "서로의 존재를 인정하고 응답하는 만남", result: 3 }, { text: "사회의 구성원으로서 맡은 역할과 조화", result: 4 }] },
+        "3C": { text: "본래의 나를 찾는 가장 자연스러운 방법은?", options: [{ text: "애써 꾸미지 않고 세상의 흐름에 나를 맡기는 것", result: 5 }, { text: "변하지 않는 '나'라는 고집을 내려놓고 비워내는 것", result: 6 }] },
+        "3D": { text: "내가 나를 만들어 갈 때 더 본질적인 모습은?", options: [{ text: "불안하더라도 스스로의 삶을 책임지며 선택하는 것", result: 7 }, { text: "자기 인간성의 기준조차 스스로 포기할 수 있는 자유", result: 8 }] }
     };
 
-    function startTest() {
-        showScreen('question-screen');
-        renderQuestion('start');
-    }
-
-    function showScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(screenId).classList.add('active');
-    }
+    function startTest() { showScreen('question-screen'); renderQuestion('start'); }
+    function showScreen(screenId) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(screenId).classList.add('active'); }
 
     function renderQuestion(qKey) {
         const q = questions[qKey];
         document.getElementById('question-text').innerText = q.text;
         const container = document.getElementById('options-container');
         container.innerHTML = '';
-        
         q.options.forEach(opt => {
             const btn = document.createElement('button');
             btn.innerText = opt.text;
-            btn.onclick = () => {
-                if (opt.result) showResult(opt.result);
-                else renderQuestion(opt.next);
-            };
+            btn.onclick = () => { if (opt.result) showResult(opt.result); else renderQuestion(opt.next); };
             container.appendChild(btn);
         });
     }
 
-	function showResult(typeId) {
-		const type = types[typeId];
-		const otherType = types[type.targetId]; // 상대 유형 정보 가져오기
+    function showResult(typeId) {
+        const type = types[typeId];
+        const badType = types[type.targetId];
+        const goodType = types[type.matchId];
 
-		// 상단 유형 명칭 및 설명
-		document.getElementById('res-type-name').innerText = type.name;
-		document.getElementById('res-type-desc').innerHTML = type.desc;
+        // 1. 내 유형 설명
+        document.getElementById('res-type-name').innerText = type.name;
+        document.getElementById('res-type-desc').innerHTML = type.desc;
 
-		// 내가 이해하기 어려운 유형 섹션
-		document.getElementById('hard-to-understand-title').innerText = `내가 이해하기 어려운 유형: [${otherType.name}]`;
-		document.getElementById('hard-to-understand-content').innerHTML = `
-			<p><strong>어려운 점:</strong> "${type.hard}"</p>
-			<p><strong>이해를 위한 팁:</strong> ${type.tip}</p>
-		`;
+        // 2. 나와 잘 맞는 유형 (데이터 적용)
+        document.getElementById('good-match-title').innerText = `나와 잘 맞는 유형: [${goodType.name}]`;
+        document.getElementById('good-match-content').innerHTML = `<p>${type.matchDesc}</p>`;
 
-		// 나를 이해하기 어려워하는 유형 섹션 (나의 입장에서 대답)
-		document.getElementById('hard-for-me-title').innerText = `나를 이해하기 어려워하는 유형: [${otherType.name}]`;
-		document.getElementById('hard-for-me-content').innerHTML = `
-			<p><strong>나를 향한 오해:</strong> "${type.misunderstanding}"</p>
-			<p><strong>나의 대답:</strong> ${type.myAnswer}</p>
-		`;
+        // 3. 나와 잘 안 맞는 유형
+        document.getElementById('bad-match-title').innerText = `나와 잘 안 맞는 유형: [${badType.name}]`;
+        document.getElementById('bad-match-content').innerHTML = `
+            <p><strong>내가 이해하기 어려운 점:</strong> "${type.hard}"</p>
+			<p style="margin-top:15px; font-size:0.9rem; color:#86868b; line-height: 1.4;">* Tip: ${type.tip}</p>
+            <p><strong>내가 받는 오해:</strong> "${type.misunderstanding}"</p>
+            
+        `;
 
-		showScreen('result-screen');
-		window.scrollTo(0, 0);
-	}
+        showScreen('result-screen');
+        window.scrollTo(0, 0);
+    }
 </script>
 
 </body>
