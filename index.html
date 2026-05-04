@@ -556,7 +556,7 @@
     };
 
     const SHARE_URL = 'https://zinesue.github.io/8essences/';
-    const SHARE_TEXT = `내 인간다움 유형 결과를 공유해요. ${SHARE_URL}`;
+    const SHARE_TEXT = `내 인간다움의 유형을 찾아봤어요. 당신의 유형도 확인해보세요. ${SHARE_URL}`;
 
     function startTest() {
         showScreen('question-screen');
@@ -682,7 +682,7 @@
             if (navigator.share) {
                 await navigator.share({
                     title: '인간다움의 8가지 유형 테스트',
-                    text: '내 인간다움 유형 결과를 공유해요.',
+                    text: '내 인간다움의 유형을 찾아봤어요. 당신의 유형도 확인해보세요.',
                     url: SHARE_URL
                 });
                 return;
