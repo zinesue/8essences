@@ -556,7 +556,10 @@
     };
 
     const SHARE_URL = 'https://zinesue.github.io/8essences/';
-    const SHARE_TEXT = `내 인간다움의 유형을 찾아봤어요. 당신의 유형도 확인해보세요. ${SHARE_URL}`;
+    const SHARE_TEXT = `내 인간다움의 유형을 찾아봤어요.
+	당신의 유형도 확인해보세요.
+	
+	${SHARE_URL}`;
 
     function startTest() {
         showScreen('question-screen');
@@ -589,14 +592,18 @@
         });
     }
 
-    function updateShareCard(typeId) {
-        const type = types[typeId];
-        const shareCard = document.getElementById('share-card');
+	function formatTypeNameForCard(name) {
+		return name.replace(/·/g, ' · ');
+	}
 
-        shareCard.style.setProperty('--share-accent', type.color);
-        document.getElementById('share-type-name').innerText = type.name;
-        document.getElementById('share-type-desc').innerText = type.shareDesc;
-    }
+	function updateShareCard(typeId) {
+		const type = types[typeId];
+		const shareCard = document.getElementById('share-card');
+
+		shareCard.style.setProperty('--share-accent', type.color);
+		document.getElementById('share-type-name').innerText = formatTypeNameForCard(type.name);
+		document.getElementById('share-type-desc').innerText = type.shareDesc;
+	}
 
     function showResult(typeId) {
         const type = types[typeId];
