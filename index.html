@@ -560,6 +560,8 @@
 당신의 유형도 확인해보세요.
 
 ${SHARE_URL}`;
+	
+	let currentResultTypeId = null;
 
     function startTest() {
         showScreen('question-screen');
@@ -596,6 +598,22 @@ ${SHARE_URL}`;
 		return name.replace(/·/g, ' · ');
 	}
 
+
+	function buildShareText(typeId) {
+	    const type = types[typeId];
+	
+	    if (!type) {
+	        return SHARE_TEXT;
+	    }
+	
+	    return `나의 인간다움 유형은 [${type.name}] 입니다.
+
+${type.shareDesc}
+
+당신은 어떤 유형일까요?
+
+${SHARE_URL}`;
+}
 	function updateShareCard(typeId) {
 		const type = types[typeId];
 		const shareCard = document.getElementById('share-card');
@@ -605,10 +623,12 @@ ${SHARE_URL}`;
 		document.getElementById('share-type-desc').innerText = type.shareDesc;
 	}
 
-    function showResult(typeId) {
-        const type = types[typeId];
-        const badType = types[type.targetId];
-        const goodType = types[type.matchId];
+	function showResult(typeId) {
+	    currentResultTypeId = typeId;
+	
+	    const type = types[typeId];
+	    const badType = types[type.targetId];
+	    const goodType = types[type.matchId];
 
         document.getElementById('res-type-name').innerText = type.name;
         document.getElementById('res-type-desc').innerHTML = type.desc;
@@ -681,49 +701,51 @@ ${SHARE_URL}`;
 
 
 	async function shareResultImage() {
-		try {
-			// 1) 애플 계열: 기존처럼 결과 카드 이미지 공유를 우선 시도
-			if (isAppleDevice()) {
-				const blob = await createResultImageBlob();
-				const file = new File([blob], '8essences-result-card.png', { type: 'image/png' });
-
-				const shareDataWithFile = {
-					title: '인간다움의 8가지 유형 테스트',
-					text: SHARE_TEXT,
-					files: [file]
-				};
-
-				if (navigator.canShare && navigator.canShare(shareDataWithFile)) {
-					await navigator.share(shareDataWithFile);
-					return;
-				}
-			}
-
-			// 2) 안드로이드 및 기타 환경: 이미지 파일 없이 텍스트만 공유
-			if (navigator.share) {
-				await navigator.share({
-					title: '인간다움의 8가지 유형 테스트',
-					text: SHARE_TEXT
-				});
-				return;
-			}
-
-			// 3) 공유 기능이 없으면 텍스트 복사
-			await navigator.clipboard.writeText(SHARE_TEXT);
-			alert('공유 문구와 주소를 복사했어요. 카카오톡에 붙여넣어 공유해주세요.');
-
-		} catch (error) {
-			if (error.name !== 'AbortError') {
-				console.error(error);
-
-				try {
-					await navigator.clipboard.writeText(SHARE_TEXT);
-					alert('공유 기능을 사용할 수 없어 문구와 주소를 복사했어요. 카카오톡에 붙여넣어 공유해주세요.');
-				} catch (copyError) {
-					alert('공유 기능을 사용할 수 없어요. 주소를 직접 복사해 공유해주세요.');
-				}
-			}
-		}
+	    const dynamicShareText = buildShareText(currentResultTypeId);
+	
+	    try {
+	        // 1) 애플 계열: 기존처럼 결과 카드 이미지 공유를 우선 시도
+	        if (isAppleDevice()) {
+	            const blob = await createResultImageBlob();
+	            const file = new File([blob], '8essences-result-card.png', { type: 'image/png' });
+	
+	            const shareDataWithFile = {
+	                title: '인간다움의 8가지 유형 테스트',
+	                text: SHARE_TEXT,
+	                files: [file]
+	            };
+	
+	            if (navigator.canShare && navigator.canShare(shareDataWithFile)) {
+	                await navigator.share(shareDataWithFile);
+	                return;
+	            }
+	        }
+	
+	        // 2) 안드로이드 및 기타 환경: 유형명 + 유형별 문구 + 링크를 텍스트로 공유
+	        if (navigator.share) {
+	            await navigator.share({
+	                title: '인간다움의 8가지 유형 테스트',
+	                text: dynamicShareText
+	            });
+	            return;
+	        }
+	
+	        // 3) 공유 기능이 없으면 같은 문구를 복사
+	        await navigator.clipboard.writeText(dynamicShareText);
+	        alert('공유 문구와 주소를 복사했어요. 카카오톡에 붙여넣어 공유해주세요.');
+	
+	    } catch (error) {
+	        if (error.name !== 'AbortError') {
+	            console.error(error);
+	
+	            try {
+	                await navigator.clipboard.writeText(dynamicShareText);
+	                alert('공유 기능을 사용할 수 없어 문구와 주소를 복사했어요. 카카오톡에 붙여넣어 공유해주세요.');
+	            } catch (copyError) {
+	                alert('공유 기능을 사용할 수 없어요. 주소를 직접 복사해 공유해주세요.');
+	            }
+	        }
+	    }
 	}
 </script>
 
