@@ -43,9 +43,23 @@
             display: block;
         }
 
-        h1 { font-weight: 700; font-size: 2rem; margin-bottom: 20px; }
-        h2 { font-weight: 700; font-size: 1.6rem; margin-bottom: 20px; }
-        p { font-weight: 300; font-size: 1.1rem; color: #6e6e73; }
+        h1 {
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-weight: 700;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: #6e6e73;
+        }
 
         .btn-container {
             margin-top: 40px;
@@ -190,7 +204,7 @@
         .share-card-inner {
             width: 100%;
             height: 100%;
-            padding: 88px 84px 76px;
+            padding: 72px 72px 62px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -203,11 +217,11 @@
         }
 
         .share-title {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 500;
             letter-spacing: -0.03em;
             color: #5f5f64;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
         }
 
         .share-top-line,
@@ -219,7 +233,7 @@
 
         .share-middle {
             text-align: center;
-            margin: 40px 0 30px;
+            margin: 10px 0 8px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -227,36 +241,45 @@
         }
 
         .share-label {
-            font-size: 38px;
+            font-size: 46px;
             font-weight: 300;
             color: #6e6e73;
             margin-bottom: 20px;
             letter-spacing: -0.03em;
         }
 
+        .share-type-block {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto 32px;
+        }
+
         .share-type-name {
-            font-size: 80px;
+            font-size: 96px;
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.18;
             color: var(--share-accent);
-            letter-spacing: -0.045em;
+            letter-spacing: -0.05em;
             word-break: keep-all;
         }
 
         .share-accent-line {
-            width: 90px;
-            height: 6px;
+            width: calc(100% - 16px);
+            min-width: 140px;
+            max-width: 520px;
+            height: 7px;
             border-radius: 999px;
             background: var(--share-accent);
-            margin: 26px auto 38px;
+            margin: 18px auto 0;
         }
 
         .share-type-desc {
-            max-width: 760px;
+            max-width: 840px;
             margin: 0 auto;
-            font-size: 38px;
+            font-size: 46px;
             font-weight: 300;
-            line-height: 1.65;
+            line-height: 1.58;
             letter-spacing: -0.04em;
             word-break: keep-all;
             white-space: pre-line;
@@ -268,9 +291,9 @@
         }
 
         .share-footer {
-            margin-top: 26px;
-            font-size: 26px;
-            line-height: 1.8;
+            margin-top: 20px;
+            font-size: 30px;
+            line-height: 1.7;
             color: #7d7d82;
             letter-spacing: -0.02em;
         }
@@ -281,8 +304,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -335,8 +365,8 @@
         </div>
 
         <div class="btn-container result-actions">
-            <button onclick="shareResultImage()">내 유형 공유하기</button>
-            <button onclick="downloadResultImage()">결과 카드 받기</button>
+            <button onclick="shareResultImage()">내 유형 공유하기(카톡)</button>
+            <button onclick="downloadResultImage()">결과 카드 받기(PC용)</button>
             <button onclick="location.reload()">다시 테스트하기</button>
         </div>
     </div>
@@ -352,8 +382,12 @@
 
         <div class="share-middle">
             <div class="share-label">나의 인간다움 유형은</div>
-            <div id="share-type-name" class="share-type-name">유형 이름</div>
-            <div class="share-accent-line"></div>
+
+            <div class="share-type-block">
+                <div id="share-type-name" class="share-type-name">유형 이름</div>
+                <div class="share-accent-line"></div>
+            </div>
+
             <div id="share-type-desc" class="share-type-desc">유형 설명</div>
         </div>
 
@@ -521,6 +555,9 @@
         }
     };
 
+    const SHARE_URL = 'https://zinesue.github.io/8essences/';
+    const SHARE_TEXT = `내 인간다움 유형 결과를 공유해요. ${SHARE_URL}`;
+
     function startTest() {
         showScreen('question-screen');
         renderQuestion('start');
@@ -603,6 +640,7 @@
                     reject(new Error('이미지 생성 실패'));
                     return;
                 }
+
                 resolve(blob);
             }, 'image/png');
         });
@@ -635,7 +673,7 @@
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 await navigator.share({
                     title: '인간다움의 8가지 유형 테스트',
-                    text: '내 인간다움 유형 결과를 공유해요.',
+                    text: SHARE_TEXT,
                     files: [file]
                 });
                 return;
@@ -644,7 +682,8 @@
             if (navigator.share) {
                 await navigator.share({
                     title: '인간다움의 8가지 유형 테스트',
-                    text: '내 인간다움 유형 결과를 공유해요.\nhttps://zinesue.github.io/8essences/'
+                    text: '내 인간다움 유형 결과를 공유해요.',
+                    url: SHARE_URL
                 });
                 return;
             }
@@ -653,7 +692,7 @@
         } catch (error) {
             if (error.name !== 'AbortError') {
                 console.error(error);
-                alert('공유 기능을 사용할 수 없어요. "결과 카드 받기"로 저장 후 공유해주세요.');
+                alert('공유 기능을 사용할 수 없어요. "결과 카드 받기(PC용)"으로 저장 후 공유해주세요.');
             }
         }
     }
