@@ -365,8 +365,8 @@
         </div>
 
         <div class="btn-container result-actions">
-            <button onclick="shareResultImage()">내 유형 공유하기(카톡)</button>
-            <button onclick="downloadResultImage()">결과 카드 받기(PC용)</button>
+            <button onclick="shareResultImage()">내 유형 공유하기</button>
+            <button onclick="downloadResultImage()">결과 카드 받기(이미지)</button>
             <button onclick="location.reload()">다시 테스트하기</button>
         </div>
     </div>
@@ -672,37 +672,59 @@ ${SHARE_URL}`;
         }
     }
 
-    async function shareResultImage() {
-        try {
-            const blob = await createResultImageBlob();
-            const file = new File([blob], '8essences-result-card.png', { type: 'image/png' });
+	function isAppleDevice() {
+		const platform = navigator.platform || '';
+		const userAgent = navigator.userAgent || '';
 
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                await navigator.share({
-                    title: '인간다움의 8가지 유형 테스트',
-                    text: SHARE_TEXT,
-                    files: [file]
-                });
-                return;
-            }
+		return /iPhone|iPad|iPod|Macintosh/.test(platform + userAgent);
+	}
 
-            if (navigator.share) {
-                await navigator.share({
-                    title: '인간다움의 8가지 유형 테스트',
-                    text: '내 인간다움의 유형을 찾아봤어요. 당신의 유형도 확인해보세요.',
-                    url: SHARE_URL
-                });
-                return;
-            }
 
-            await downloadResultImage();
-        } catch (error) {
-            if (error.name !== 'AbortError') {
-                console.error(error);
-                alert('공유 기능을 사용할 수 없어요. "결과 카드 받기(PC용)"으로 저장 후 공유해주세요.');
-            }
-        }
-    }
+	async function shareResultImage() {
+		try {
+			// 1) 애플 계열: 기존처럼 결과 카드 이미지 공유를 우선 시도
+			if (isAppleDevice()) {
+				const blob = await createResultImageBlob();
+				const file = new File([blob], '8essences-result-card.png', { type: 'image/png' });
+
+				const shareDataWithFile = {
+					title: '인간다움의 8가지 유형 테스트',
+					text: SHARE_TEXT,
+					files: [file]
+				};
+
+				if (navigator.canShare && navigator.canShare(shareDataWithFile)) {
+					await navigator.share(shareDataWithFile);
+					return;
+				}
+			}
+
+			// 2) 안드로이드 및 기타 환경: 이미지 파일 없이 텍스트만 공유
+			if (navigator.share) {
+				await navigator.share({
+					title: '인간다움의 8가지 유형 테스트',
+					text: SHARE_TEXT
+				});
+				return;
+			}
+
+			// 3) 공유 기능이 없으면 텍스트 복사
+			await navigator.clipboard.writeText(SHARE_TEXT);
+			alert('공유 문구와 주소를 복사했어요. 카카오톡에 붙여넣어 공유해주세요.');
+
+		} catch (error) {
+			if (error.name !== 'AbortError') {
+				console.error(error);
+
+				try {
+					await navigator.clipboard.writeText(SHARE_TEXT);
+					alert('공유 기능을 사용할 수 없어 문구와 주소를 복사했어요. 카카오톡에 붙여넣어 공유해주세요.');
+				} catch (copyError) {
+					alert('공유 기능을 사용할 수 없어요. 주소를 직접 복사해 공유해주세요.');
+				}
+			}
+		}
+	}
 </script>
 
 </body>
